@@ -1,0 +1,75 @@
+---
+strategy: polling
+no_screen_padding: 'no'
+dark_mode: 'no'
+static_data: ''
+polling_verb: get
+framework_version: 2.3.7
+serverless_language: ''
+polling_url: https://api.gg.deals/v1/prices/by-steam-app-id/?key={{ api_key }}&ids={{ steam_app_ids }}&region={{ region }}
+polling_headers: ''
+polling_body: ''
+id: 192524
+oauth_enabled: 'false'
+oauth_pkce_enabled: 'no'
+oauth_authorize_url: ''
+oauth_token_url: ''
+oauth_scopes: ''
+oauth_scope_separator: ''
+oauth_refresh_url: ''
+oauth_auth_params: ''
+oauth_token_headers: ''
+oauth_token_site: ''
+oauth_token_params: ''
+oauth_token_request_auth_method: ''
+oauth_body_format: ''
+oauth_token_response_metadata: ''
+oauth_authorization_method: ''
+oauth_refresh_params: ''
+oauth_token_field_name: ''
+oauth_expiry_field_name: ''
+oauth_expiry_strategy: ''
+oauth_fixed_expiry_ms: ''
+custom_fields:
+- name: About this plugin
+  keyname: author_bio
+  field_type: author_bio
+  description: Watch the prices of the games you want most. Instantly see what they cost now and how low they’ve been before, retail and keyshops included. When a game is at it's cheapest, the price will be in a black box. Created by @Bas/@Bastronautica on Discord, with the help of the GG.deals API.
+  category: analytics
+  email_address: trmnl@achtnegen.nl
+- keyname: api_key
+  field_type: string
+  name: API Key
+  description: Get an API key from your <a href="https://gg.deals" target="_blank">GG.deals account page</a>.
+- keyname: steam_app_ids
+  field_type: string
+  name: Steam App IDs
+  description: Get the Steam ID of your wanted game on <a href="https://steamdb.info/" target="_blank">SteamDB</a>.
+  help_text: Enter the values as comma-separated, with no spaces or line breaks. There is a limit of 4 games.<br><br>4 games on full, 2 on half horizontal, 3 on half vertical and 1 on quadrant.
+- keyname: region
+  field_type: select
+  name: Region
+  description: Select a region.
+  default: us
+  options:
+  - au
+  - be
+  - br
+  - ca
+  - ch
+  - de
+  - dk
+  - es
+  - eu
+  - fi
+  - fr
+  - gb
+  - ie
+  - it
+  - nl
+  - pl
+  - se
+  - us
+name: GG.Deals
+description: Track your game discounts
+refresh_interval: 1440
