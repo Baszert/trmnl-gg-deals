@@ -1,9 +1,15 @@
 # GG.Deals
 
-A [TRMNL](https://trmnl.com) plugin for ePaper displays, connected by
-[GitHub Sync](https://help.trmnl.com/en/articles/15977899-github-sync): every save in TRMNL lands here as a commit.
+Watch the prices of the games you want most. See what they cost now and how low they've been before, for retail and keyshops. At its all-time low, the price is shown in a black box.
 
-<img width="150" alt="image" src="https://trmnl.com/images/brand/badges/light/works-with-trmnl/trmnl-badge-works-with-light.svg" />
+<a href="https://trmnl.com/recipes/192524"><img width="150" alt="Works with TRMNL" src="https://trmnl.com/images/brand/badges/light/works-with-trmnl/trmnl-badge-works-with-light.svg" /></a>
+
+## Settings
+- **API key:** from your [GG.deals account](https://gg.deals)
+- **Steam App IDs:** comma-separated, find them on [SteamDB](https://steamdb.info/) (up to 4 games)
+- **Region:** price region
+
+Full shows 4 games, half vertical 3, half horizontal 2 and quadrant 1. Each game gets a QR code to its GG.deals page. Data from the [GG.deals API](https://gg.deals/api/).
 
 ### Develop locally
 
@@ -14,6 +20,4 @@ gem install trmnl_preview
 trmnlp serve
 ```
 
-### Discoverability
-
-Add the `trmnl` topic to this repo so other TRMNL plugin builders can find it.
+Questions or ideas? trmnl@achtnegen.nl or @Bastronautica on Discord.
