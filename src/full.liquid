@@ -1,0 +1,74 @@
+<div class="bg--gray-75 gg-deals rounded layout flex flex--col value--small p--4">
+  <div class="text--right w--full h--8 flex">
+    <div class="value--xxsmall bg--white rounded p--2">Last update: {{ current_time }}</div>
+    <div class="stretch">
+      <svg class="h--6 mb--1" fill="none" viewBox="0 0 590 79" xmlns="http://www.w3.org/2000/svg"><path d="m51.9717 9.875-34.6475 19.75.0166 19.75 17.3242 9.875 17.3243-9.875-17.3243-9.875 17.3243-9.875 17.3242 9.875v19.75l-34.6485 19.75-34.6474219-19.75-.0175781-39.5 34.6484-19.75zm78.8423 0-34.648 19.75.0176 19.75 17.3244 9.875 17.324-9.875-17.324-9.875 17.324-9.875 17.324 9.875v19.75l-34.648 19.75-34.6467-19.75-.0175-39.5 34.6462-19.75zm61.299 59.25-16.951 9.875-16.95-9.875 16.951-9.875zm29.527-59.25v59.25l-17.283 9.875v-79zm51.843 9.875v39.5l-34.562 19.75-17.281-9.875 34.56-19.7383v-19.7734l-34.55-19.74416 17.271-9.86914zm79.199 0-17.292 9.875-17.292-9.875-17.342 9.8633 17.291 9.8867-17.291 9.8867 17.342 9.8779 17.292-9.8896 17.292 9.875-34.584 19.75-34.634-19.75v-39.5l34.633-19.75h.001zm79.013 0v59.25l-17.281-9.875v-39.5l-17.299-9.875-17.263 9.8633v19.7607l17.281-9.874 17.279 9.875-17.279 9.875-17.281-9.875v19.75l-17.282 9.875v-59.25l34.562-19.75h.002zm27.281-9.875.017 39.5 17.3 9.875 34.6-19.75v19.75l-34.6 19.75-34.601-19.75-.016-59.25zm130.931 9.875-17.281 9.875-17.298-9.875-17.265 9.8633 17.282 9.8857 17.281-9.874 17.28 9.875v19.75l-34.562 19.75-34.561-19.75 17.28-9.875 17.282 9.875 17.281-9.875-17.281-9.875-17.282 9.875-17.281-9.875v-19.75l34.563-19.75z" fill="#000"/></svg>
+    </div>
+  </div>
+  {% if deals %}
+  <div class="grid grid--cols-2 gap w--full">
+    {% for item in deals limit:8 %}
+    {% comment %} item is [key, value] because deals is a Hash {% endcomment %}
+    {% assign game = item[1] %}
+
+    {% if game %}
+    <div class="flex flex--col flex--left bg--white p--3 rounded w--full game-item {% if forloop.index > 4 %}md:hidden lg:block{% endif %}">
+      <div class="value--xsmall col--span-1 game-title">{{ game.title }} </div>
+      <div class="grid grid--cols-3 gap--large h--full">
+        {% assign prices = game.prices %}
+        {% assign currency_symbol = "" %}
+        {% case prices.currency %}
+        {% when "EUR" %}{% assign currency_symbol = "€" %}
+        {% when "USD" %}{% assign currency_symbol = "$" %}
+        {% when "GBP" %}{% assign currency_symbol = "£" %}
+        {% when "CHF" %}{% assign currency_symbol = "₣" %}
+        {% when "CAD" %}{% assign currency_symbol = "$" %}
+        {% when "BRL" %}{% assign currency_symbol = "R$" %}
+        {% when "SEK" %}{% assign currency_symbol = "kr" %}
+        {% when "NOK" %}{% assign currency_symbol = "kr" %}
+        {% when "DKK" %}{% assign currency_symbol = "kr" %}
+        {% when "PLN" %}{% assign currency_symbol = "zł" %}
+        {% when "JP" or "JPY" %}{% assign currency_symbol = "¥" %}
+        {% endcase %}
+        {% if prices.currentRetail %}
+        <div class="flex flex--col flex--left gap--small">
+          <div class="value--xxsmall">Retail</div>
+          <div class="value--xsmall
+            {% if prices.currentRetail < prices.historicalRetail or prices.currentRetail == prices.historicalRetail  %}
+            bg--black text--white py--1 px--2 rounded--small
+            {% endif %}
+            ">
+            {{ currency_symbol }}
+            {{ prices.currentRetail }}</div>
+          <div class="value--xxsmall historic"><i class="hgi hgi-stroke hgi-arrow-down-right-01"></i> {{ currency_symbol }} {{ prices.historicalRetail }}</div>
+        </div>
+        {% endif %}
+        {% if prices.currentKeyshops %}
+        <div class="flex flex--col flex--left left gap--small">
+          <div class="value--xxsmall">Keyshop</div>
+          <div class="value--xsmall 
+            {% if prices.currentKeyshops < prices.historicalKeyshops or prices.currentKeyshops == prices.historicalKeyshops %}
+            bg--black text--white py--1 px--2 rounded--small
+            {% endif %}
+            ">
+            {{ currency_symbol }}
+            {{ prices.currentKeyshops }}</div>
+          <div class="value--xxsmall historic"><i class="hgi hgi-stroke hgi-arrow-down-right-01"></i> {{ currency_symbol }} {{ prices.historicalKeyshops }}</div>
+        </div>
+        {% endif %}
+        <div id="qrcode">
+          <qr>{{ game.url }}</qr>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="flex flex--col flex--center-y h--full">
+    <i class="hgi hgi-stroke hgi-sad-dizzy value--xlarge"></i>
+    <div class="value">No Data Found</div>
+    <div class="value--xsmall">Check API Key & App IDs</div>
+  </div>
+  {% endif %}
+</div>

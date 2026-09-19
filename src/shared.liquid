@@ -1,0 +1,22 @@
+{% assign deals = data %}
+
+{% assign utc = trmnl.system.timestamp_utc %}
+{% assign offset = trmnl.user.utc_offset %}
+
+{% assign local_timestamp = utc | plus: offset %}
+{% assign current_time = local_timestamp | date: "%H:%M"  %}
+
+<link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/yunruse/trmnl-tricks/QR.js" defer></script>
+
+<style>
+  .gg-deals, .value { font-family: "Jetbrains Mono", sans-serif; font-weight: 400; font-style: normal;}
+  .game-title { font-weight: 800; }
+  .historic { opacity: 0.5; }
+  #qrcode { text-align: center; }
+  #qrcode img {width: 70% !important;margin-left: 10px;}
+</style>
