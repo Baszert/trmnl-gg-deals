@@ -14,9 +14,10 @@
 <script src="https://cdn.jsdelivr.net/gh/yunruse/trmnl-tricks/QR.js" defer></script>
 
 <style>
-  .gg-deals, .value { font-family: "Jetbrains Mono", sans-serif; font-weight: 400; font-style: normal;}
-  .game-title { font-weight: 800; }
-  .historic { opacity: 0.5; }
-  #qrcode { text-align: center; }
-  #qrcode img {width: 70% !important;margin-left: 10px;}
+  /* Scoped to .gg-deals so the font and helpers don't leak into other plugins in a mashup */
+  .gg-deals, .gg-deals .value { font-family: "Jetbrains Mono", sans-serif; font-weight: 400; font-style: normal;}
+  .gg-deals .game-title { font-weight: 800; }
+  .gg-deals .historic { opacity: 0.5; }
+  .gg-deals .qrcode { text-align: center; }
+  .gg-deals .qrcode img {width: 70% !important;margin-left: 10px;}
 </style>

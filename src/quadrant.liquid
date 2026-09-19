@@ -20,8 +20,9 @@
         {% when "EUR" %}{% assign currency_symbol = "€" %}
         {% when "USD" %}{% assign currency_symbol = "$" %}
         {% when "GBP" %}{% assign currency_symbol = "£" %}
-        {% when "CHF" %}{% assign currency_symbol = "₣" %}
-        {% when "CAD" %}{% assign currency_symbol = "$" %}
+        {% when "CHF" %}{% assign currency_symbol = "CHF " %}
+        {% when "CAD" %}{% assign currency_symbol = "C$" %}
+        {% when "AUD" %}{% assign currency_symbol = "A$" %}
         {% when "BRL" %}{% assign currency_symbol = "R$" %}
         {% when "SEK" %}{% assign currency_symbol = "kr" %}
         {% when "NOK" %}{% assign currency_symbol = "kr" %}
@@ -29,11 +30,16 @@
         {% when "PLN" %}{% assign currency_symbol = "zł" %}
         {% when "JP" or "JPY" %}{% assign currency_symbol = "¥" %}
         {% endcase %}
+        {% comment %} Compare as numbers, not strings ("9.99" > "19.99" as text) {% endcomment %}
+        {% assign cur_retail = prices.currentRetail | plus: 0 %}
+        {% assign low_retail = prices.historicalRetail | plus: 0 %}
+        {% assign cur_keyshop = prices.currentKeyshops | plus: 0 %}
+        {% assign low_keyshop = prices.historicalKeyshops | plus: 0 %}
         {% if prices.currentRetail %}
         <div class="flex flex--col flex--left gap--small">
           <div class="value--xxsmall">Retail</div>
           <div class="value--xsmall
-            {% if prices.currentRetail < prices.historicalRetail or prices.currentRetail == prices.historicalRetail %}
+            {% if cur_retail <= low_retail %}
             bg--black text--white py--1 px--2 rounded--small
             {% endif %}
             ">{{ currency_symbol }} {{ prices.currentRetail }}</div>
@@ -44,14 +50,14 @@
         <div class="flex flex--col flex--left left gap--small">
           <div class="value--xxsmall">Keyshop</div>
           <div class="value--xsmall 
-            {% if prices.currentKeyshops < prices.historicalKeyshops or prices.currentKeyshops == prices.historicalKeyshops %}
+            {% if cur_keyshop <= low_keyshop %}
             bg--black text--white py--1 px--2 rounded--small
             {% endif %}
             ">{{ currency_symbol }} {{ prices.currentKeyshops }}</div>
           <div class="value--xxsmall historic"><i class="hgi hgi-stroke hgi-arrow-down-right-01"></i> {{ currency_symbol }} {{ prices.historicalKeyshops }}</div>
         </div>
         {% endif %}
-                <div id="qrcode" class="pt--2">
+                <div class="qrcode pt--2">
           <qr>{{ game.url }}</qr>
         </div>
       </div>
